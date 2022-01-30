@@ -14,8 +14,7 @@ warnings.filterwarnings("ignore")
 app = Flask(__name__)
 CORS(app)
 
-if __name__ == "__main__":
-    app.run()
+
 
 def organizePokemon():
     df = pd.read_csv('pokemon.csv')
@@ -113,7 +112,31 @@ def organizePokemon():
     rock = np.concatenate((rock1,rock2))
     steel = np.concatenate((steel1,steel2))
     water = np.concatenate((water1,water2))
+    pokemon={
+        "bug":bug,
+        "dark":dark,
+        "dragon":dragon,
+        "electric":electric,
+        "fairy":fairy,
+        "fighting":fighting,
+        "fire":fire,
+        "flying":flying,
+        "ghost":ghost,
+        "grass":grass,
+        "ground":ground,
+        "ice":ice,
+        "normal":normal,
+        "poison":poison,
+        "psychic":psychic,
+        "rock":rock,
+        "steel":steel,
+        "water":water
+    }
+    return pokemon
 
 @app.route("/metamorph")
 def metamorph():
     return {0}
+
+if __name__ == "__main__":
+    app.run()
