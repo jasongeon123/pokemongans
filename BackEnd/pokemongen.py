@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
+import sys
 from flask import Flask
 from flask_cors import CORS, cross_origin
+from api.HelloApiHandler import HelloApiHandler
 import csv
 import pandas as pd
 import warnings
 import numpy as np
 import sklearn
 import os
-import sys
+
 
 warnings.filterwarnings("ignore")
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='',static_folder='frontend/build')
 CORS(app)
 
 
@@ -135,7 +137,7 @@ def organizePokemon():
     return pokemon
 
 @app.route("/metamorph")
-def metamorph():
+def pokemongenerator():
     return {0}
 
 if __name__ == "__main__":
