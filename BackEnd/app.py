@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import sys
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
-from api.HelloApiHandler import HelloApiHandler
+from flask_restful import Api, Resource, reqparse
+from HelloApiHandler import HelloApiHandler
 import csv
 import pandas as pd
 import warnings
@@ -13,10 +14,9 @@ import os
 
 warnings.filterwarnings("ignore")
 
-app = Flask(__name__, static_url_path='',static_folder='frontend/build')
+app = Flask(__name__, static_url_path='', static_folder='../frontend/public')
 CORS(app)
-
-
+api = Api(app)
 
 def organizePokemon():
     df = pd.read_csv('pokemon.csv')
@@ -136,9 +136,8 @@ def organizePokemon():
     }
     return pokemon
 
-@app.route("/metamorph")
-def pokemongenerator():
-    return {0}
+@app.route("/", defaults={'path':''})
+def serve(path):
+    return send_from_directory(app.static_folder,'index.html')
 
-if __name__ == "__main__":
-    app.run()
+api.add_resource(HelloApiHandler,'/flask/hello')
